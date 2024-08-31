@@ -1,0 +1,236 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+}
+input {
+  display: none;
+}
+
+main {
+  display: grid;
+  grid-template: 100vh/100vw;
+}
+h2 {
+}
+.rotate {
+  perspective: 300vmin;
+  grid-area: 1/1/2/2;
+  align-self: center;
+  justify-self: center;
+}
+.cube {
+  transition: transform 2s;
+  width: 80vmin;
+  height: 80vmin;
+  transform-style: preserve-3d;
+  .side {
+    z-index: 100;
+    position: absolute;
+    transform-style: preserve-3d;
+    background-color: #23232388;
+    width: 100%;
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: solid #fafafafa 1rem;
+
+    h2 {
+      backdrop-filter: blur(1px);
+      width: 100%;
+      text-align: center;
+    }
+  }
+  .top {
+    transform: rotateX(90deg) rotate(180deg) rotateY(180deg) translateZ(40vmin);
+    background-color: #2e8bb488;
+  }
+  .bottom {
+    transform: rotateX(90deg) translateZ(40vmin);
+    background-color: #98000088;
+  }
+  .left {
+    transform: rotateY(-90deg) translateZ(40vmin);
+    background-color: #e7a06088;
+  }
+  .right {
+    transform: rotateY(90deg) translateZ(40vmin);
+    background-color: #6c968688;
+  }
+  .front {
+    transform: translateZ(40vmin);
+    background-color: #aa7b3088;
+  }
+  .back {
+    transform: translateZ(-40vmin) rotateX(-180deg);
+    background-color: #0e1e3f88;
+  }
+}
+.context > ul li {
+  position: absolute;
+  left: -100vw;
+  top: -100vh;
+  width: 80vmin;
+  height: 80vmin;
+  padding-top: 80vmin;
+  overflow: auto;
+  opacity: 0;
+  transition: opacity 0s;
+  transition-delay: 2s;
+  article {
+    backdrop-filter: blur(10px);
+  }
+}
+main:has(#top:checked) {
+  .rotate > .cube {
+    transform: rotateX(90deg);
+  }
+  .context > ul > .top {
+    left: calc(50% - 40vmin);
+    top: calc(50% - 40vmin);
+    opacity: 1;
+  }
+}
+main:has(#bottom:checked) {
+  .rotate > .cube {
+    transform: rotateX(90deg);
+  }
+  .context > ul > .bottom {
+    left: calc(50% - 40vmin);
+    top: calc(50% - 40vmin);
+    opacity: 1;
+  }
+}
+main:has(#left:checked) {
+  .rotate > .cube {
+    transform: rotateX(90deg);
+  }
+  .context > ul > .left {
+    left: calc(50% - 40vmin);
+    top: calc(50% - 40vmin);
+    opacity: 1;
+  }
+}
+main:has(#right:checked) {
+  .rotate > .cube {
+    transform: rotateX(90deg);
+  }
+  .context > ul > .right {
+    left: calc(50% - 40vmin);
+    top: calc(50% - 40vmin);
+    opacity: 1;
+  }
+}
+main:has(#front:checked) {
+  .rotate > .cube {
+    transform: rotateX(90deg);
+  }
+  .context > ul > .front {
+    left: calc(50% - 40vmin);
+    top: calc(50% - 40vmin);
+    opacity: 1;
+  }
+}
+main:has(#back:checked) {
+  .rotate > .cube {
+    transform: rotateX(90deg);
+  }
+  .context > ul > .back {
+    left: calc(50% - 40vmin);
+    top: calc(50% - 40vmin);
+    opacity: 1;
+  }
+}
+
+main:has(#bottom:checked) > .rotate > .cube {
+  transform: rotateX(-90deg);
+}
+main:has(#left:checked) > .rotate > .cube {
+  transform: rotateY(90deg);
+}
+main:has(#right:checked) > .rotate > .cube {
+  transform: rotateY(-90deg);
+}
+main:has(#front:checked) > .rotate > .cube {
+  transform: auto;
+}
+main:has(#back:checked) > .rotate > .cube {
+  transform: rotateX(180deg);
+}
+.nav {
+  grid-area: 1/1;
+  width: max-content;
+  height: max-content;
+  display: flex;
+  gap: 2em;
+}
+
+.side {
+  overflow-y: auto;
+  padding: 3rem 1em;
+  z-index: 20;
+  * {
+    z-index: 20;
+  }
+  article {
+    padding: 3rem 1em;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 2rem 1em;
+    p {
+      background-color: #980000;
+      color: #fafafa;
+      border-radius: 20px;
+      padding: 0.3rem 0.5em;
+    }
+  }
+}
+.visible {
+  grid-area: 1/1;
+  align-self: center;
+  justify-self: center;
+  display: grid;
+  width: 80vmin;
+  height: 80vmin;
+  perspective: 300vmin;
+  z-index: 100;
+  * {
+    opacity: 0;
+    transform: translateZ(40vmin);
+    animation: show 0s forwards;
+    animation-delay: 2s;
+  }
+}
+.cube > .hide {
+  opacity: 0;
+  transition: opacity 1ms;
+  transition-delay: 2s;
+}
+
+.visible::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #555;
+}
+@keyframes show {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.visible::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaa; /* or add it to the track */
+}
+.visible::-webkit-scrollbar-thumb {
+  background: #000;
+}
